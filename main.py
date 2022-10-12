@@ -31,7 +31,7 @@ except requests.exceptions.ConnectionError:
     exit()
 
 
-class NitroGen:  # Initialise the class
+class NitroGen:
     def __init__(self):
         self.fileName = "Nitro Codes.txt"
 
@@ -71,7 +71,7 @@ class NitroGen:  # Initialise the class
 
             if os.name == "nt":
                 ctypes.windll.kernel32.SetConsoleTitleW(
-                    f"Nitro Generator and Checker - {len(valid)} Valid | {invalid} Invalid - Made by Drillenissen#4268")  # Change the title
+                    f"Nitro Generator and Checker - {len(valid)} Valid | {invalid} Invalid - Made by Drillenissen#4268")
                 print("")
             else:
                 print(
