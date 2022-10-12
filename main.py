@@ -2,6 +2,7 @@ import ctypes
 import string
 import os
 import time
+from traceback import print_exc
 
 
 time.sleep(3)
@@ -38,30 +39,9 @@ class NitroGen:  # Initialise the class
     def __init__(self):  # The initaliseaiton function
         self.fileName = "Nitro Codes.txt"  # Set the file name the codes are stored in
 
-    def main(self):  # The main function contains the most important code
-        os.system('cls' if os.name == 'nt' else 'clear')  # Clear the screen
-        if os.name == "nt":  # If the system is windows
-            print("")
-            ctypes.windll.kernel32.SetConsoleTitleW(
-                "Nitro Generator and Checker - Made by Drillenissen#4268")  # Change the
-        else:  # Or if it is unix
-            print(f'\33]0;Nitro Generator and Checker - Made by Drillenissen#4268\a',
-                  end='', flush=True)  # Update title of command prompt
-
-        print(""" █████╗ ███╗   ██╗ ██████╗ ███╗   ██╗██╗██╗  ██╗
-██╔══██╗████╗  ██║██╔═══██╗████╗  ██║██║╚██╗██╔╝
-███████║██╔██╗ ██║██║   ██║██╔██╗ ██║██║ ╚███╔╝
-██╔══██║██║╚██╗██║██║   ██║██║╚██╗██║██║ ██╔██╗
-██║  ██║██║ ╚████║╚██████╔╝██║ ╚████║██║██╔╝ ██╗
-╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝
-                                                        """)  # Print the title card
-        time.sleep(2)  # Wait a few seconds
-        # Print who developed the code
-        self.slowType("Made by: Drillenissen#4268 && Benz#7274", .02)
-        time.sleep(1)  # Wait a little more
-        # Print the first question
-        self.slowType(
-            "\nInput How Many Codes to Generate and Check: ", .02, newLine=False)
+    def main(self):
+        print(
+            "\nInput How Many Codes to Generate and Check: ")
 
         try:
             num = int(input(''))  # Ask the user for the amount of codes
@@ -116,15 +96,6 @@ Results:
         # Tell the user the program finished
         input("\nThe end! Press Enter 5 times to close the program.")
         [input(i) for i in range(4, 0, -1)]  # Wait for 4 enter presses
-
-    # Function used to print text a little more fancier
-    def slowType(self, text: str, speed: float, newLine=True):
-        for i in text:  # Loop over the message
-            # Print the one charecter, flush is used to force python to print the char
-            print(i, end="", flush=True)
-            time.sleep(speed)  # Sleep a little before the next one
-        if newLine:  # Check if the newLine argument is set to True
-            print()  # Print a final newline to make it act more like a normal print statement
 
     # Used to check a single code at a time
     def quickChecker(self, nitro: str):
