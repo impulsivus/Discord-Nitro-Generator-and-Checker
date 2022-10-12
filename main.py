@@ -68,15 +68,6 @@ class NitroGen:
 
             except Exception as e:
                 print(f" Error | {url} ")
-
-            if os.name == "nt":
-                ctypes.windll.kernel32.SetConsoleTitleW(
-                    f"Nitro Generator and Checker - {len(valid)} Valid | {invalid} Invalid - Made by Drillenissen#4268")
-                print("")
-            else:
-                print(
-                    f'\33]0;Nitro Generator and Checker - {len(valid)} Valid | {invalid} Invalid - Made by Drillenissen#4268\a', end='', flush=True)
-
         print(f"""
 Results:
  Valid: {len(valid)}
@@ -95,7 +86,6 @@ Results:
                   end="" if os.name == 'nt' else "\n")
             with open("Nitro Codes.txt", "w") as file:
                 file.write(nitro)
-
             return True
 
         else:
