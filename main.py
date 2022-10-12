@@ -8,82 +8,72 @@ from traceback import print_exc
 time.sleep(3)
 os.system('cls' if os.name == 'nt' else 'clear')
 
-try:  # Setup try statement to catch the error
-    import requests  # Try to import requests
-except ImportError:  # If it has not been installed
-    # Tell the user it has not been installed and how to install it
+try:
+    import requests
+except ImportError:
     input(
         f"Module requests not installed, to install run '{'py -3' if os.name == 'nt' else 'python3.8'} -m pip install requests'\nPress enter to exit")
-    exit()  # Exit the program
-try:  # Setup try statement to catch the error
-    import numpy  # Try to import requests
-except ImportError:  # If it has not been installed
-    # Tell the user it has not been installed and how to install it
+    exit()
+try:
+    import numpy
+except ImportError:
     input(
         f"Module numpy not installed, to install run '{'py -3' if os.name == 'nt' else 'python3.8'} -m pip install numpy'\nPress enter to exit")
-    exit()  # Exit the program
+    exit()
 
-# check if user is connected to internet
 url = "https://github.com"
 try:
-    response = requests.get(url)  # Get the responce from the url
+    response = requests.get(url)
     print("Internet check")
     time.sleep(.4)
 except requests.exceptions.ConnectionError:
-    # Tell the user
     input("You are not connected to internet, check your connection and try again.\nPress enter to exit")
-    exit()  # Exit program
+    exit()
 
 
 class NitroGen:  # Initialise the class
-    def __init__(self):  # The initaliseaiton function
-        self.fileName = "Nitro Codes.txt"  # Set the file name the codes are stored in
+    def __init__(self):
+        self.fileName = "Nitro Codes.txt"
 
     def main(self):
         print(
             "\nInput How Many Codes to Generate and Check: ")
 
         try:
-            num = int(input(''))  # Ask the user for the amount of codes
+            num = int(input(''))
         except ValueError:
             input("Specified input wasn't a number.\nPress enter to exit")
-            exit()  # Exit program
+            exit()
 
-        # print() # Print a newline for looks
-
-        valid = []  # Keep track of valid codes
-        invalid = 0  # Keep track of how many invalid codes was detected
+        valid = []
+        invalid = 0
         chars = []
         chars[:0] = string.ascii_letters + string.digits
 
-        # generate codes faster than using random.choice
         c = numpy.random.choice(chars, size=[num, 16])
-        for s in c:  # Loop over the amount of codes to check
+        for s in c:
             try:
                 code = ''.join(x for x in s)
-                url = f"https://discord.gift/{code}"  # Generate the url
+                url = f"https://discord.gift/{code}"
 
-                result = self.quickChecker(url)  # Check the codes
+                result = self.quickChecker(url)
 
-                if result:  # If the code was valid
-                    # Add that code to the list of found codes
+                if result:
                     valid.append(url)
-                else:  # If the code was not valid
-                    invalid += 1  # Increase the invalid counter by one
+                else:
+                    invalid += 1
             except KeyboardInterrupt:
-                # If the user interrupted the program
                 print("\nInterrupted by user")
-                break  # Break the loop
+                break
 
-            except Exception as e:  # If the request fails
-                print(f" Error | {url} ")  # Tell the user an error occurred
+            except Exception as e:
+                print(f" Error | {url} ")
 
-            if os.name == "nt":  # If the system is windows
+            if os.name == "nt":
                 ctypes.windll.kernel32.SetConsoleTitleW(
                     f"Nitro Generator and Checker - {len(valid)} Valid | {invalid} Invalid - Made by Drillenissen#4268")  # Change the title
                 print("")
-            else:  # If it is a unix system
-                # Change the title
+            else:
                 print(
                     f'\33]0;Nitro Generator and Checker - {len(valid)} Valid | {invalid} Invalid - Made by Drillenissen#4268\a', end='', flush=True)
 
@@ -91,36 +81,29 @@ class NitroGen:  # Initialise the class
 Results:
  Valid: {len(valid)}
  Invalid: {invalid}
- Valid Codes: {', '.join(valid)}""")  # Give a report of the results of the check
-
-        # Tell the user the program finished
+ Valid Codes: {', '.join(valid)}""")
+        
         input("\nThe end! Press Enter 5 times to close the program.")
-        [input(i) for i in range(4, 0, -1)]  # Wait for 4 enter presses
+        [input(i) for i in range(4, 0, -1)]
 
-    # Used to check a single code at a time
     def quickChecker(self, nitro: str):
-        # Generate the request url
         url = f"https://discordapp.com/api/v9/entitlements/gift-codes/{nitro}?with_application=false&with_subscription_plan=true"
-        response = requests.get(url)  # Get the response from discord
+        response = requests.get(url)
 
-        if response.status_code == 200:  # If the responce went through
-            # Notify the user the code was valid
+        if response.status_code == 200:
             print(f" Valid | {nitro} ", flush=True,
                   end="" if os.name == 'nt' else "\n")
-            with open("Nitro Codes.txt", "w") as file:  # Open file to write
-                # Write the nitro code to the file it will automatically add a newline
+            with open("Nitro Codes.txt", "w") as file:
                 file.write(nitro)
 
-            return True  # Tell the main function the code was found
+            return True
 
-        # If the responce got ignored or is invalid ( such as a 404 or 405 )
         else:
-            # Tell the user it tested a code and it was invalid
             print(f" Invalid | {nitro} ", flush=True,
                   end="" if os.name == 'nt' else "\n")
-            return False  # Tell the main function there was not a code found
+            return False 
 
 
 if __name__ == '__main__':
-    Gen = NitroGen()  # Create the nitro generator object
-    Gen.main()  # Run the main code
+    Gen = NitroGen()
+    Gen.main()
