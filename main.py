@@ -2,23 +2,11 @@ import ctypes
 import string
 import os
 import time
-LICNECE = """
-Copyright (c) 2021 Drillenissen#4268 logicguy.mailandcontact@gmail.com
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-"""
 
 USE_WEBHOOK = True
 
-print(LICNECE)
-
 time.sleep(3)
 os.system('cls' if os.name == 'nt' else 'clear')
-
 
 try:  # Check if the requrements have been installed
     from discord_webhook import DiscordWebhook  # Try to import discord_webhook
@@ -96,12 +84,12 @@ class NitroGen:  # Initialise the class
             url = input('')  # Get the awnser
             # If the url is empty make it be None insted
             webhook = url if url != "" else None
-            
+
             if webhook is not None:
                 DiscordWebhook(  # Let the user know it has started logging the ids
-                        url=url,
-                        content=f"```Started checking urls\nI will send any valid codes here```"
-                    ).execute()
+                    url=url,
+                    content=f"```Started checking urls\nI will send any valid codes here```"
+                ).execute()
 
         # print() # Print a newline for looks
 
@@ -160,7 +148,8 @@ Results:
         if newLine:  # Check if the newLine argument is set to True
             print()  # Print a final newline to make it act more like a normal print statement
 
-    def quickChecker(self, nitro:str, notify=None):  # Used to check a single code at a time
+    # Used to check a single code at a time
+    def quickChecker(self, nitro: str, notify=None):
         # Generate the request url
         url = f"https://discordapp.com/api/v9/entitlements/gift-codes/{nitro}?with_application=false&with_subscription_plan=true"
         response = requests.get(url)  # Get the response from discord
