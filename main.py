@@ -1,8 +1,5 @@
-import ctypes
 import string
 import os
-import time
-from traceback import print_exc
 
 os.system('cls' if os.name == 'nt' else 'clear')
 
