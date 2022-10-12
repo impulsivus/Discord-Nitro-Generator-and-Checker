@@ -4,8 +4,6 @@ import os
 import time
 from traceback import print_exc
 
-
-time.sleep(3)
 os.system('cls' if os.name == 'nt' else 'clear')
 
 try:
@@ -25,7 +23,6 @@ url = "https://github.com"
 try:
     response = requests.get(url)
     print("Internet check")
-    time.sleep(.4)
 except requests.exceptions.ConnectionError:
     input("You are not connected to internet, check your connection and try again.\nPress enter to exit")
     exit()
