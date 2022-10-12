@@ -61,7 +61,7 @@ class NitroGen:
                 break
 
             except Exception as e:
-                print(f" Error | {url} ")
+                print(f" Error | {url} | {e}")
         print(f"""
 Results:
  Valid: {len(valid)}
