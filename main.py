@@ -3,18 +3,10 @@ import string
 import os
 import time
 
-USE_WEBHOOK = True
 
 time.sleep(3)
 os.system('cls' if os.name == 'nt' else 'clear')
 
-try:  # Check if the requrements have been installed
-    from discord_webhook import DiscordWebhook  # Try to import discord_webhook
-except ImportError:  # If it chould not be installed
-    # Tell the user it has not been installed and how to install it
-    input(
-        f"Module discord_webhook not installed, to install run '{'py -3' if os.name == 'nt' else 'python3.8'} -m pip install discord_webhook'\nYou can ignore this error if you aren't going to use a webhook.\nPress enter to continue.")
-    USE_WEBHOOK = False
 try:  # Setup try statement to catch the error
     import requests  # Try to import requests
 except ImportError:  # If it has not been installed
@@ -77,20 +69,6 @@ class NitroGen:  # Initialise the class
             input("Specified input wasn't a number.\nPress enter to exit")
             exit()  # Exit program
 
-        if USE_WEBHOOK:
-            # Get the webhook url, if the user does not wish to use a webhook the message will be an empty string
-            self.slowType(
-                "If you want to use a Discord webhook, type it here or press enter to ignore: ", .02, newLine=False)
-            url = input('')  # Get the awnser
-            # If the url is empty make it be None insted
-            webhook = url if url != "" else None
-
-            if webhook is not None:
-                DiscordWebhook(  # Let the user know it has started logging the ids
-                    url=url,
-                    content=f"```Started checking urls\nI will send any valid codes here```"
-                ).execute()
-
         # print() # Print a newline for looks
 
         valid = []  # Keep track of valid codes
@@ -105,7 +83,7 @@ class NitroGen:  # Initialise the class
                 code = ''.join(x for x in s)
                 url = f"https://discord.gift/{code}"  # Generate the url
 
-                result = self.quickChecker(url, webhook)  # Check the codes
+                result = self.quickChecker(url)  # Check the codes
 
                 if result:  # If the code was valid
                     # Add that code to the list of found codes
@@ -149,7 +127,7 @@ Results:
             print()  # Print a final newline to make it act more like a normal print statement
 
     # Used to check a single code at a time
-    def quickChecker(self, nitro: str, notify=None):
+    def quickChecker(self, nitro: str):
         # Generate the request url
         url = f"https://discordapp.com/api/v9/entitlements/gift-codes/{nitro}?with_application=false&with_subscription_plan=true"
         response = requests.get(url)  # Get the response from discord
@@ -161,12 +139,6 @@ Results:
             with open("Nitro Codes.txt", "w") as file:  # Open file to write
                 # Write the nitro code to the file it will automatically add a newline
                 file.write(nitro)
-
-            if notify is not None:  # If a webhook has been added
-                DiscordWebhook(  # Send the message to discord letting the user know there has been a valid nitro code
-                    url=url,
-                    content=f"Valid Nito Code detected! @everyone \n{nitro}"
-                ).execute()
 
             return True  # Tell the main function the code was found
 
