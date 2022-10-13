@@ -27,7 +27,7 @@ except requests.exceptions.ConnectionError:
 
 class NitroGen:
     def __init__(self):
-        self.fileName = "Nitro Codes.txt"
+        self.fileName = "nitro_codes.txt"
 
     def main(self):
         print(
@@ -78,8 +78,8 @@ Results:
         if response.status_code == 200:
             print(f" Valid | {nitro} ", flush=True,
                   end="" if os.name == 'nt' else "\n")
-            with open("Nitro Codes.txt", "w") as file:
-                file.write(nitro)
+            with open(self.fileName, "a") as file:
+                file.write(f"{nitro} \n")
             return True
 
         else:
